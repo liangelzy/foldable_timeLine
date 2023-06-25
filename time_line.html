@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>新闻检索页面</title>
+    <link href="./css/time_line.css" rel="stylesheet" type="text/css" />
+</head>
+<style>
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        background-color: rgb(48, 43, 43);
+    }
+
+    #content_search{
+        margin-left: 50px;
+    }
+    #content_search a{
+        color: azure;
+    }
+    #content_search a:hover{
+        color:burlywood;
+        text-decoration: dashed;
+    }
+    .search_hit {
+        color: #ee8383;
+    }
+</style>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/vue.js"></script>
+
+
+<body class="earth-view">
+
+    <div id="content_search" style="height: 98%;">
+
+        <template>
+
+            <div class="content" id="content">
+                <div class="wrapper">
+                    <div class="main">
+                        <!--                                                        <h1 class="title">时间历程</h1>-->
+                        <div class="year" v-for="item in tableData">
+                            <h2><a style="font-size: 16px" href=#
+                                    @click="test($event)">{{item.year}}年（{{item.child.length}}条）</a>
+                            </h2>
+                            <div class="list">
+                                <ul>
+                                    <li class="cls" v-for="child in item.child">
+                                        <p class="date">&nbsp;</p>
+
+                                        <p class="intro" v-if="isExceed(child)">
+                                            <el-tooltip class="item" effect="dark" :content="child.title"
+                                                placement="top-start">
+                                                <a href="#" style="font-size: 15px"
+                                                    @click="showNews(child)">{{getTitle(child)}}</a>
+                                            </el-tooltip>
+                                        </p>
+
+                                        <p class="intro" v-else>
+                                            <a href="#" style="font-size: 14px"
+                                                @click="showNews(child)">{{getTitle(child)}}</a>
+                                        </p>
+
+                                        <p class="version">&nbsp;</p>
+                                        <div class="more">
+                                            <p style="font-size: 12px" v-html="child.content"></p>
+                                            <p style="font-size: 12px">
+                                                {{child.contentDateTime+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;来源：'+child.contentSource+'&nbsp;&nbsp;作者：'+child.contentAuthor}}
+                                            </p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </template>
+
+    </div>
+
+
+</body>
+<script src="./js/time_line.js"></script>
+</html>
